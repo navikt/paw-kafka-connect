@@ -1,0 +1,58 @@
+name: Build and deploy
+
+on: [push]
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+jobs:
+  build:
+    name: Build and publish Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-buildx-action@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          tags: ${{ env.IMAGE }}
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-dev:
+    name: Deploy to dev
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml,.nais/nais-connect-ui.yaml
+          VARS: .nais/dev-vars.yaml
+          PRINT_PAYLOAD: true
+
+  # deploy-prod:
+  #   name: Deploy to prod
+  #   needs: [build]
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: nais/deploy/actions/deploy@v1
+  #       env:
+  #         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+  #         CLUSTER: prod-gcp
+  #         RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml
+  #         VARS: .nais/prod-vars.yaml
+  #         PRINT_PAYLOAD: true

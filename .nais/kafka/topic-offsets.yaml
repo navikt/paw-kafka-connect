@@ -1,0 +1,20 @@
+apiVersion: kafka.nais.io/v1
+kind: Topic
+metadata:
+  name: paw-kafka-connect-offsets
+  namespace: paw
+  labels:
+    team: paw
+spec:
+  pool: {{kafka_pool}}
+  config:
+    cleanupPolicy: compact
+    minimumInSyncReplicas: 1
+    partitions: 25
+    replication: 3
+    retentionBytes: -1
+    retentionHours: 24
+  acl:
+    - team: paw
+      application: paw-kafka-connect
+      access: readwrite

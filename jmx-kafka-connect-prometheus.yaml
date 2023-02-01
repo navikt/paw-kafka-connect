@@ -1,0 +1,17 @@
+---
+jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:5555/jmxrmi
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+ssl: false
+rules:
+  - pattern: "kafka.connect<type=connect-worker-metrics>([^:]+):"
+    name: "cp_kafka_connect_connect_worker_metrics_$1"
+  - pattern: "kafka.connect<type=connect-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "cp_kafka_connect_connect_metrics_$1_$2"
+  - pattern: "kafka.connect<type=connector-task-metrics, connector=([^:]+), task=([^:]+)><>status: ([^:]+)"
+    name: "cp_kafka_connect_connect_connector_metrics"
+    value: 1
+    labels:
+      connector: $1
+      task: $2
+      status: $3
