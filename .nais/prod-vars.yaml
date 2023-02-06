@@ -1,3 +1,0 @@
-kafka_pool: nav-prod
-ui:
-  ingress: https://paw-kafka-connect-ui.intern.nav.no
