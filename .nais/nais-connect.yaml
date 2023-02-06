@@ -11,10 +11,10 @@ metadata:
 spec:
   image: {{image}}
   port: 8083
-  prometheus:
-    enabled: true
-    port: "5556"
-    path: /metrics
+  # prometheus:
+  #   enabled: true
+  #   port: "5556"
+  #   path: /metrics
   strategy:
     type: Recreate
   replicas:
