@@ -42,17 +42,17 @@ jobs:
           VARS: .nais/dev-vars.yaml
           PRINT_PAYLOAD: true
 
-  # deploy-prod:
-  #   name: Deploy to prod
-  #   needs: [build]
-  #   if: github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: nais/deploy/actions/deploy@v1
-  #       env:
-  #         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-  #         CLUSTER: prod-gcp
-  #         RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml
-  #         VARS: .nais/prod-vars.yaml
-  #         PRINT_PAYLOAD: true
+  deploy-prod:
+    name: Deploy to prod
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml
+          VARS: .nais/prod-vars.yaml
+          PRINT_PAYLOAD: true
