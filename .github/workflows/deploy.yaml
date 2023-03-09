@@ -38,7 +38,7 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml,.nais/nais-connect-ui.yaml
+          RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml
           VARS: .nais/dev-vars.yaml
           PRINT_PAYLOAD: true
 
@@ -53,6 +53,6 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
-          RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml,.nais/nais-connect-ui.yaml
+          RESOURCE: .nais/nais-connect.yaml,.nais/kafka/topic-configs.yaml,.nais/kafka/topic-offsets.yaml,.nais/kafka/topic-status.yaml
           VARS: .nais/prod-vars.yaml
           PRINT_PAYLOAD: true
