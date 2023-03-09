@@ -1,4 +1,4 @@
-FROM confluentinc/cp-kafka-connect:7.2.3
+FROM confluentinc/cp-kafka-connect:7.3.2
 RUN confluent-hub install --no-prompt wepay/kafka-connect-bigquery:2.3.5
 
 # Setup JMX exporter
