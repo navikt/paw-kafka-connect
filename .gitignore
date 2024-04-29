@@ -2,6 +2,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/git,intellij+all,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,intellij+all,vim
 
+
 ### Git ###
 # Created by git for backups. To disable backups in Git:
 # $ git config --global mergetool.keepBackup false
