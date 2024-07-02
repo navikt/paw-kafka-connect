@@ -36,11 +36,10 @@ spec:
     timeout: 3
   resources:
     limits:
-      cpu: 2000m
-      memory: 3072Mi
-    requests:
-      cpu: 1000m
       memory: 2048Mi
+    requests:
+      cpu: 125m
+      memory: 1536Mi
   kafka:
     pool: {{kafka_pool}}
   env:
